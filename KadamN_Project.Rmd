@@ -63,3 +63,58 @@ comb <- inner_join(labor_force,so_spending, by = c("Reference area" = "Entity", 
 comb <- filter(comb, Sex == "Female")
 
 ```
+
+
+
+
+```{r}
+set.seed(12345)
+train_ind <- sample(1:nrow(comb), floor(.8*nrow(comb)))
+set.seed(NULL)
+
+Train <- comb[train_ind,]
+Test <- comb[-train_ind,]
+
+
+```
+
+```{r}
+
+
+
+model<- lm(Total ~ single_widowed_divorced + married_union_cohabiting+family  , data= Train)
+summary(model)
+
+```
+
+
+
+```{r}
+
+yhat <- predict(model, newdata=Test)
+
+
+```
+
+
+```{r}
+MSE1 <- mean((Test$Total-yhat)^2)
+MSE1
+
+RMSE1 <- sqrt(MSE1)
+RMSE1
+
+
+
+
+```
+
+
+
+
+
+
+
+
+
+
