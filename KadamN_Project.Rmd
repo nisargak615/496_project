@@ -1,0 +1,19 @@
+---
+title: "KadamN_Project"
+author: "Nisarga Kadam"
+date: "2022-11-17"
+output: html_document
+---
+
+
+
+
+```{r}
+rm(list = ls())
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(readxl)
+labor_force <- read_excel("/Users/nisar/Desktop/Penn State 2022-2023/FALL/SODA496/LFPR.xlsx", skip = 5)
+so_spending <- read.csv("/Users/nisar/Desktop/Penn State 2022-2023/FALL/SODA496/social-expenditure-as-percentage-of-gdp.csv")
+```
