@@ -17,3 +17,49 @@ library(readxl)
 labor_force <- read_excel("/Users/nisar/Desktop/Penn State 2022-2023/FALL/SODA496/LFPR.xlsx", skip = 5)
 so_spending <- read.csv("/Users/nisar/Desktop/Penn State 2022-2023/FALL/SODA496/social-expenditure-as-percentage-of-gdp.csv")
 ```
+
+
+
+
+
+
+```{r}
+
+
+labor_force <- 
+  labor_force %>% 
+  select("Reference area", "Source", "Sex", "Age", "Time", "Total", "Single / Widowed / Divorced", "Married / Union / Cohabiting")
+
+labor_force <- na.omit(labor_force)
+
+labor_force <- 
+  labor_force %>%
+  rename(
+    Total = "Total",
+    single_widowed_divorced = `Single / Widowed / Divorced`,
+    married_union_cohabiting = `Married / Union / Cohabiting`
+  )
+
+so_spending <- 
+  so_spending %>%
+  rename( family = "Social.expenditure.on.family....of.GDP...OECD.Stats..2019..",
+          health = "Social.expenditure.on.health....of.GDP...OECD.Stats..2019..",
+          housing = "Social.expenditure.on.housing....of.GDP...OECD.Stats..2019..",
+          disability = "Incapacity.related.social.expenditures....of.GDP...OECD.Stats..2019..",
+          oldAge = "Old.age.related.social.expenditures....of.GDP...OECD.Stats..2019..",
+          otherPolicy = "Social.expenditure.on.other.social.policy.areas....of.GDP...OECD.Stats..2019..",
+          survivors = "Social.expenditure.on.survivors....of.GDP...OECD.Stats..2019..",
+          unemployment = "Social.expenditure.on.unemployment....of.GDP...OECD.Stats..2019..",
+          labormktPolicy = "Social.expenditure.on.active.labor.market.policies....of.GDP...OECD.Stats..2019.."
+          
+          )
+so_spending <- na.omit(so_spending)
+```
+
+```{r}
+
+comb <- inner_join(labor_force,so_spending, by = c("Reference area" = "Entity", "Time" = "Year"))
+
+comb <- filter(comb, Sex == "Female")
+
+```
